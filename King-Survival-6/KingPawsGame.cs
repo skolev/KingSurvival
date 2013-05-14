@@ -7,7 +7,7 @@ namespace KingSurvivalGame
 {
     class KingPawsGame : Game
     {
-        protected static void InteractWithUser(int moveCounter)
+        public void InteractWithUser(int move)
         {
             if (gameIsFinished)
             { //igrata svyrshi
@@ -16,20 +16,20 @@ namespace KingSurvivalGame
             }
             else
             {
-                if (moveCounter % 2 == 0)
+                PokajiDyskata();
+                
+                if (move % 2 == 0)
                 {
-                    PokajiDyskata();
                     ProcessKingSide();
                 }
                 else
                 {
-                    PokajiDyskata();
                     ProcessPawnSide();
                 }
             }
         }
 
-        static void ProcessKingSide()
+        void ProcessKingSide()
         {
             bool isExecuted = false;
             while (!isExecuted)
@@ -47,10 +47,10 @@ namespace KingSurvivalGame
                     Console.WriteLine("Please enter something!");
                 }
             }
-            InteractWithUser(counter);
+            InteractWithUser(Counter);
         }
 
-        static void ProcessPawnSide() 
+        void ProcessPawnSide() 
         {
             bool isExecuted = false;
             while (!isExecuted)
@@ -71,7 +71,7 @@ namespace KingSurvivalGame
                     Console.WriteLine("Please enter something!");
                 }
             }
-            InteractWithUser(counter);
+            InteractWithUser(Counter);
         }
     }
 }

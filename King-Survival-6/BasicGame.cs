@@ -7,24 +7,24 @@ namespace KingSurvivalGame
 {
     class BasicGame
     {
-        protected static int[,] edges = 
+        protected int[,] edges = 
         {
             { 2, 4 }, { 2, 18 }, { 9, 4 }, { 9, 18 }
         };
 
-        protected static int counter = 0;
+        public int Counter { get; set; }
 
-        protected static string[] validKingInputs = { "KUL", "KUR", "KDL", "KDR" };
+        protected string[] validKingInputs = { "KUL", "KUR", "KDL", "KDR" };
 
-        protected static string[] validAPawnInputs = { "ADL", "ADR" };
+        protected string[] validAPawnInputs = { "ADL", "ADR" };
 
-        protected static string[] validBPawnInputs = { "BDL", "BDR" };
+        protected string[] validBPawnInputs = { "BDL", "BDR" };
 
-        protected static string[] validCPawnInputs = { "CDL", "CDR" };
+        protected string[] validCPawnInputs = { "CDL", "CDR" };
 
-        protected static string[] validDPawnInputs = { "DDL", "DDR" };
+        protected string[] validDPawnInputs = { "DDL", "DDR" };
 
-        protected static bool proverka(int[] positionCoodinates)
+        protected bool proverka(int[] positionCoodinates)
         {
             int positonRow = positionCoodinates[0];
             bool isRowInBoard = (positonRow >= edges[0, 0]) && (positonRow <= edges[3, 0]);
@@ -33,159 +33,30 @@ namespace KingSurvivalGame
             return isRowInBoard && isColInBoard;
         }
 
-        protected static bool proverka2(string checkedString)
+        protected bool ValidateCommand(string checkedString)
         {
-            if (counter % 2 == 0)
+            if (Counter % 2 == 0)
             {
-                int[] equal = new int[4];
-                for (int i = 0; i < validKingInputs.Length; i++)
-                {
-                    string reference = validKingInputs[i];
-                    int result = checkedString.CompareTo(reference);
-                    if (result != 0)
-                    {
-                        equal[i] = 0;
-                    }
-                    else
-                    {
-                        equal[i] = 1;
-                    }
-                }
-                bool hasAnEqual = false;
-                for (int i = 0; i < 4; i++)
-                {
-                    if (equal[i] == 1)
-                    {
-                        hasAnEqual = true;
-                    }
-                }
-                if (!hasAnEqual)
-                {
-                    Console.WriteLine("Invalid command name!");
-                }
-                return hasAnEqual;
+                return validKingInputs.Contains(checkedString);
             }
             else
             {
                 char startLetter = checkedString[0];
-                int[] equal = new int[2];
-                bool hasAnEqual = false;
                 switch (startLetter)
                 {
                     case 'A':
-                        for (int i = 0; i < validAPawnInputs.Length; i++)
-                        {
-                            string reference = validAPawnInputs[i];
-                            int result = checkedString.CompareTo(reference);
-                            if (result != 0)
-                            {
-                                equal[i] = 0;
-                            }
-                            else
-                            {
-                                equal[i] = 1;
-                            }
-                        }
-                        for (int i = 0; i < 2; i++)
-                        {
-                            if (equal[i] == 1)
-                            {
-                                hasAnEqual = true;
-                            }
-                        }
-                        if (!hasAnEqual)
-                        {
-                            Console.WriteLine("Invalid command name!");
-                        }
-                        return hasAnEqual;
-                           
+                        return validAPawnInputs.Contains(checkedString);
                     case 'B':
-                        for (int i = 0; i < validBPawnInputs.Length; i++)
-                        {
-                            string reference = validBPawnInputs[i];
-                            int result = checkedString.CompareTo(reference);
-                            if (result != 0)
-                            {
-                                equal[i] = 0;
-                            }
-                            else
-                            {
-                                equal[i] = 1;
-                            }
-                        }
-                        for (int i = 0; i < 2; i++)
-                        {
-                            if (equal[i] == 1)
-                            {
-                                hasAnEqual = true;
-                            }
-                        }
-                        if (!hasAnEqual)
-                        {
-                            Console.WriteLine("Invalid command name!");
-                        }
-                        return hasAnEqual;
+                        return validBPawnInputs.Contains(checkedString);
                     case 'C':
-                        for (int i = 0; i < validCPawnInputs.Length; i++)
-                        {
-                            string reference = validCPawnInputs[i];
-                            int result = checkedString.CompareTo(reference);
-                            if (result != 0)
-                            {
-                                equal[i] = 0;
-                            }
-                            else
-                            {
-                                equal[i] = 1;
-                            }
-                        }
-                        for (int i = 0; i < 2; i++)
-                        {
-                            if (equal[i] == 1)
-                            {
-                                hasAnEqual = true;
-                            }
-                        }
-                        if (!hasAnEqual)
-                        {
-                            Console.WriteLine("Invalid command name!");
-                        }
-                        return hasAnEqual;
-
+                        return validCPawnInputs.Contains(checkedString);
                     case 'D':
-                        for (int i = 0; i < validDPawnInputs.Length; i++)
-                        {
-                            string reference = validDPawnInputs[i];
-                            int result = checkedString.CompareTo(reference);
-                            if (result != 0)
-                            {
-                                equal[i] = 0;
-                            }
-                            else
-                            {
-                                equal[i] = 1;
-                            }
-                        }
-                        for (int i = 0; i < 2; i++)
-                        {
-                            if (equal[i] == 1)
-                            {
-                                hasAnEqual = true;
-                            }
-                        }
-                        if (!hasAnEqual)
-                        {
-                            Console.WriteLine("Invalid command name!");
-                        }
-                        return hasAnEqual;
-                       
+                        return validDPawnInputs.Contains(checkedString);
+
                     default:
-                        Console.WriteLine("Invalid command name!");
                         return false;
-                //    break;
                 }
             }
-            return true;
         }
     }
 }

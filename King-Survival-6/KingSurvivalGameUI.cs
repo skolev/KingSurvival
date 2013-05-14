@@ -2,12 +2,13 @@
 
 namespace KingSurvivalGame
 {
-    class KingSurvivalGame : KingPawsGame
+    class KingSurvivalGameUI
     {
         static void Main()
         {
-            InteractWithUser(counter);
+            KingPawsGame game = new KingPawsGame();
+            game.InteractWithUser(game.Counter);
             Console.WriteLine("\nThank you for using this game!\n\n");
-        }             
+        }
     }
 }

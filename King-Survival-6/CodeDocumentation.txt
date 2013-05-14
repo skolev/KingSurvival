@@ -1,0 +1,5 @@
+﻿1.Renamed class where main method is to KingSurvivalGameUI.
+2.Got rid of every occurance of the word static... nothing works now, just as expected :)
+3.Starting to build the oop model.
+4.Completly refactored the proverka2 method to one liners and renamed it to ValidateCommand();
+5.Started refacturing the Game.cs Changing all constant variables to const.
