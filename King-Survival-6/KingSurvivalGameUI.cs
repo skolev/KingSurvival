@@ -34,7 +34,7 @@ namespace KingSurvivalGame.UI
                         continue;
                     }
 
-                    if (ProcessPlayerMove(userInput, game))
+                    if (game.ProcessCommand(userInput))
                     {
                         break;
                     }
@@ -52,16 +52,6 @@ namespace KingSurvivalGame.UI
         public static string GetUserInput()
         {
             return Console.ReadLine().ToUpper();
-        }
-
-        public static bool ProcessPlayerMove(string cmd, Game game)
-        {
-            if (game.ProcessCommand(cmd))
-            {
-                return true;
-            }
-
-            return false;
         }
 
     }

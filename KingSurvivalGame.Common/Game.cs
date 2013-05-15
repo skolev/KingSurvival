@@ -10,7 +10,7 @@ namespace KingSurvivalGame.Common
         public bool KingIsOnTheMove { get { return Counter % 2 == 0; } }
         public int KingTurns { get { return Counter / 2; } }
 
-        public bool GameIsFinished {get; protected set;}
+        public bool GameIsFinished { get; protected set; }
 
         protected char[,] field = 
         {
@@ -485,6 +485,7 @@ namespace KingSurvivalGame.Common
                 {
                     int[] coordinates = { row, col };
                     bool isCellIn = CheckIfInBoard(coordinates);
+                    
                     if (isCellIn)
                     {
                         if (row % 2 == 0)
@@ -519,10 +520,11 @@ namespace KingSurvivalGame.Common
                     {
                         consoleOutput.Append(field[row, col]);
                     }
+
                 }
                 consoleOutput.AppendLine();
             }
-            
+
             consoleOutput.AppendLine();
 
             return consoleOutput.ToString();
@@ -530,218 +532,211 @@ namespace KingSurvivalGame.Common
 
         public bool ProcessCommand(string cmd)
         {
-            bool commandNameIsOK = ValidateCommand(cmd);
-            if (commandNameIsOK)
+            char startLetter = cmd[0];
+            switch (startLetter)
             {
-                char startLetter = cmd[0];
-                switch (startLetter)
-                {
-                    case 'A':
+                case 'A':
 
+                    if (cmd[2] == 'L')
+                    {
+                        int[] oldCoordinates = new int[2];
+                        oldCoordinates[0] = startingPositionsPawns[0, 0];
+
+                        oldCoordinates[1] = startingPositionsPawns[0, 1];
+
+                        int[] coords = new int[2];
+                        coords = CheckPawnDestination(oldCoordinates, 'L', 'A');
+                        if (coords != null)
+                        {
+                            startingPositionsPawns[0, 0] = coords[0];
+                            startingPositionsPawns[0, 1] = coords[1];
+                        }
+                    }
+                    else
+                    {
+                        //=='D'
+                        int[] oldCoordinates = new int[2];
+                        oldCoordinates[0] = startingPositionsPawns[0, 0];
+
+                        oldCoordinates[1] = startingPositionsPawns[0, 1];
+                        int[] coords = new int[2];
+
+                        coords = CheckPawnDestination(oldCoordinates, 'R', 'A');
+                        if (coords != null)
+                        {
+                            startingPositionsPawns[0, 0] = coords[0];
+
+                            startingPositionsPawns[0, 1] = coords[1];
+                        }
+                    }
+                    return true;
+
+                case 'B':
+                    if (cmd[2] == 'L')
+                    {
+                        int[] oldCoordinates = new int[2];
+                        oldCoordinates[0] = startingPositionsPawns[1, 0];
+                        oldCoordinates[1] = startingPositionsPawns[1, 1];
+
+                        int[] coords = new int[2];
+
+                        coords = CheckPawnDestination(oldCoordinates, 'L', 'B');
+                        if (coords != null)
+                        {
+                            startingPositionsPawns[1, 0] = coords[0];
+
+                            startingPositionsPawns[1, 1] = coords[1];
+                        }
+                    }
+                    else
+                    {
+                        //=='D'
+                        int[] oldCoordinates = new int[2];
+
+                        oldCoordinates[0] = startingPositionsPawns[1, 0];
+
+                        oldCoordinates[1] = startingPositionsPawns[1, 1];
+
+                        int[] coords = new int[2];
+                        coords = CheckPawnDestination(oldCoordinates, 'R', 'B');
+                        if (coords != null)
+                        {
+                            startingPositionsPawns[1, 0] = coords[0];
+
+                            startingPositionsPawns[1, 1] = coords[1];
+                        }
+                    }
+                    return true;
+
+                case 'C':
+                    if (cmd[2] == 'L')
+                    {
+                        int[] oldCoordinates = new int[2];
+                        oldCoordinates[0] = startingPositionsPawns[2, 0];
+
+                        oldCoordinates[1] = startingPositionsPawns[2, 1];
+                        int[] coords = new int[2];
+                        coords = CheckPawnDestination(oldCoordinates, 'L', 'C');
+                        if (coords != null)
+                        {
+                            startingPositionsPawns[2, 0] = coords[0];
+                            startingPositionsPawns[2, 1] = coords[1];
+                        }
+                    }
+                    else
+                    {
+                        //=='D'
+                        int[] oldCoordinates = new int[2];
+                        oldCoordinates[0] = startingPositionsPawns[2, 0];
+                        oldCoordinates[1] = startingPositionsPawns[2, 1];
+                        int[] coords = new int[2];
+                        coords = CheckPawnDestination(oldCoordinates, 'R', 'C');
+                        if (coords != null)
+                        {
+                            startingPositionsPawns[1, 0] = coords[0];
+                            startingPositionsPawns[1, 1] = coords[1];
+                        }
+                    }
+                    return true;
+
+                case 'D':
+                    if (cmd[2] == 'L')
+                    {
+                        int[] oldCoordinates = new int[2];
+                        oldCoordinates[0] = startingPositionsPawns[3, 0];
+                        oldCoordinates[1] = startingPositionsPawns[3, 1];
+                        int[] coords = new int[2];
+                        coords = CheckPawnDestination(oldCoordinates, 'L', 'D');
+                        if (coords != null)
+                        {
+                            startingPositionsPawns[3, 0] = coords[0];
+                            startingPositionsPawns[3, 1] = coords[1];
+                        }
+                    }
+                    else
+                    {
+                        //=='D'
+                        int[] oldCoordinates = new int[2];
+                        oldCoordinates[0] = startingPositionsPawns[3, 0];
+                        oldCoordinates[1] = startingPositionsPawns[3, 1];
+                        int[] coords = new int[2];
+                        coords = CheckPawnDestination(oldCoordinates, 'R', 'D');
+                        if (coords != null)
+                        {
+                            startingPositionsPawns[3, 0] = coords[0];
+                            startingPositionsPawns[3, 1] = coords[1];
+                        }
+                    }
+                    return true;
+
+                case 'K':
+                    if (cmd[1] == 'U')
+                    {
                         if (cmd[2] == 'L')
                         {
                             int[] oldCoordinates = new int[2];
-                            oldCoordinates[0] = startingPositionsPawns[0, 0];
-
-                            oldCoordinates[1] = startingPositionsPawns[0, 1];
-
+                            oldCoordinates[0] = startingPositionKing[0];
+                            oldCoordinates[1] = startingPositionKing[1];
                             int[] coords = new int[2];
-                            coords = CheckPawnDestination(oldCoordinates, 'L', 'A');
+                            coords = checkNextKingPosition(oldCoordinates, 'U', 'L');
                             if (coords != null)
                             {
-                                startingPositionsPawns[0, 0] = coords[0];
-                                startingPositionsPawns[0, 1] = coords[1];
+                                startingPositionKing[0] = coords[0];
+                                startingPositionKing[1] = coords[1];
                             }
                         }
                         else
                         {
-                            //=='D'
                             int[] oldCoordinates = new int[2];
-                            oldCoordinates[0] = startingPositionsPawns[0, 0];
-
-                            oldCoordinates[1] = startingPositionsPawns[0, 1];
+                            oldCoordinates[0] = startingPositionKing[0];
+                            oldCoordinates[1] = startingPositionKing[1];
                             int[] coords = new int[2];
-
-                            coords = CheckPawnDestination(oldCoordinates, 'R', 'A');
+                            coords = checkNextKingPosition(oldCoordinates, 'U', 'R');
                             if (coords != null)
                             {
-                                startingPositionsPawns[0, 0] = coords[0];
-
-                                startingPositionsPawns[0, 1] = coords[1];
+                                startingPositionKing[0] = coords[0];
+                                startingPositionKing[1] = coords[1];
                             }
                         }
                         return true;
-
-                    case 'B':
+                    }
+                    else
+                    {
+                        //=KD_
                         if (cmd[2] == 'L')
                         {
                             int[] oldCoordinates = new int[2];
-                            oldCoordinates[0] = startingPositionsPawns[1, 0];
-                            oldCoordinates[1] = startingPositionsPawns[1, 1];
-
+                            oldCoordinates[0] = startingPositionKing[0];
+                            oldCoordinates[1] = startingPositionKing[1];
                             int[] coords = new int[2];
-
-                            coords = CheckPawnDestination(oldCoordinates, 'L', 'B');
+                            coords = checkNextKingPosition(oldCoordinates, 'D', 'L');
                             if (coords != null)
                             {
-                                startingPositionsPawns[1, 0] = coords[0];
-
-                                startingPositionsPawns[1, 1] = coords[1];
+                                startingPositionKing[0] = coords[0];
+                                startingPositionKing[1] = coords[1];
                             }
                         }
                         else
                         {
-                            //=='D'
+                            //==KDD
                             int[] oldCoordinates = new int[2];
-
-                            oldCoordinates[0] = startingPositionsPawns[1, 0];
-
-                            oldCoordinates[1] = startingPositionsPawns[1, 1];
-
+                            oldCoordinates[0] = startingPositionKing[0];
+                            oldCoordinates[1] = startingPositionKing[1];
                             int[] coords = new int[2];
-                            coords = CheckPawnDestination(oldCoordinates, 'R', 'B');
+                            coords = checkNextKingPosition(oldCoordinates, 'D', 'R');
                             if (coords != null)
                             {
-                                startingPositionsPawns[1, 0] = coords[0];
-
-                                startingPositionsPawns[1, 1] = coords[1];
+                                startingPositionKing[0] = coords[0];
+                                startingPositionKing[1] = coords[1];
                             }
                         }
                         return true;
-
-                    case 'C':
-                        if (cmd[2] == 'L')
-                        {
-                            int[] oldCoordinates = new int[2];
-                            oldCoordinates[0] = startingPositionsPawns[2, 0];
-
-                            oldCoordinates[1] = startingPositionsPawns[2, 1];
-                            int[] coords = new int[2];
-                            coords = CheckPawnDestination(oldCoordinates, 'L', 'C');
-                            if (coords != null)
-                            {
-                                startingPositionsPawns[2, 0] = coords[0];
-                                startingPositionsPawns[2, 1] = coords[1];
-                            }
-                        }
-                        else
-                        {
-                            //=='D'
-                            int[] oldCoordinates = new int[2];
-                            oldCoordinates[0] = startingPositionsPawns[2, 0];
-                            oldCoordinates[1] = startingPositionsPawns[2, 1];
-                            int[] coords = new int[2];
-                            coords = CheckPawnDestination(oldCoordinates, 'R', 'C');
-                            if (coords != null)
-                            {
-                                startingPositionsPawns[1, 0] = coords[0];
-                                startingPositionsPawns[1, 1] = coords[1];
-                            }
-                        }
-                        return true;
-
-                    case 'D':
-                        if (cmd[2] == 'L')
-                        {
-                            int[] oldCoordinates = new int[2];
-                            oldCoordinates[0] = startingPositionsPawns[3, 0];
-                            oldCoordinates[1] = startingPositionsPawns[3, 1];
-                            int[] coords = new int[2];
-                            coords = CheckPawnDestination(oldCoordinates, 'L', 'D');
-                            if (coords != null)
-                            {
-                                startingPositionsPawns[3, 0] = coords[0];
-                                startingPositionsPawns[3, 1] = coords[1];
-                            }
-                        }
-                        else
-                        {
-                            //=='D'
-                            int[] oldCoordinates = new int[2];
-                            oldCoordinates[0] = startingPositionsPawns[3, 0];
-                            oldCoordinates[1] = startingPositionsPawns[3, 1];
-                            int[] coords = new int[2];
-                            coords = CheckPawnDestination(oldCoordinates, 'R', 'D');
-                            if (coords != null)
-                            {
-                                startingPositionsPawns[3, 0] = coords[0];
-                                startingPositionsPawns[3, 1] = coords[1];
-                            }
-                        }
-                        return true;
-
-                    case 'K':
-                        if (cmd[1] == 'U')
-                        {
-                            if (cmd[2] == 'L')
-                            {
-                                int[] oldCoordinates = new int[2];
-                                oldCoordinates[0] = startingPositionKing[0];
-                                oldCoordinates[1] = startingPositionKing[1];
-                                int[] coords = new int[2];
-                                coords = checkNextKingPosition(oldCoordinates, 'U', 'L');
-                                if (coords != null)
-                                {
-                                    startingPositionKing[0] = coords[0];
-                                    startingPositionKing[1] = coords[1];
-                                }
-                            }
-                            else
-                            {
-                                int[] oldCoordinates = new int[2];
-                                oldCoordinates[0] = startingPositionKing[0];
-                                oldCoordinates[1] = startingPositionKing[1];
-                                int[] coords = new int[2];
-                                coords = checkNextKingPosition(oldCoordinates, 'U', 'R');
-                                if (coords != null)
-                                {
-                                    startingPositionKing[0] = coords[0];
-                                    startingPositionKing[1] = coords[1];
-                                }
-                            }
-                            return true;
-                        }
-                        else
-                        {
-                            //=KD_
-                            if (cmd[2] == 'L')
-                            {
-                                int[] oldCoordinates = new int[2];
-                                oldCoordinates[0] = startingPositionKing[0];
-                                oldCoordinates[1] = startingPositionKing[1];
-                                int[] coords = new int[2];
-                                coords = checkNextKingPosition(oldCoordinates, 'D', 'L');
-                                if (coords != null)
-                                {
-                                    startingPositionKing[0] = coords[0];
-                                    startingPositionKing[1] = coords[1];
-                                }
-                            }
-                            else
-                            {
-                                //==KDD
-                                int[] oldCoordinates = new int[2];
-                                oldCoordinates[0] = startingPositionKing[0];
-                                oldCoordinates[1] = startingPositionKing[1];
-                                int[] coords = new int[2];
-                                coords = checkNextKingPosition(oldCoordinates, 'D', 'R');
-                                if (coords != null)
-                                {
-                                    startingPositionKing[0] = coords[0];
-                                    startingPositionKing[1] = coords[1];
-                                }
-                            }
-                            return true;
-                        }
-                    default:
-                        Console.WriteLine("Sorry, there are some errors, but I can't tell you anything! You broked my program!");
-                        return false;
-                }
+                    }
+                default:
+                    //  TODO better solution for here...   Console.WriteLine("Sorry, there are some errors, but I can't tell you anything! You broked my program!");
+                    return false;
             }
-            else
-            {
-                return false;//message is from other
-            }
+
         }
     }
 }
