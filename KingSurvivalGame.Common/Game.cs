@@ -7,9 +7,8 @@ namespace KingSurvivalGame.Common
 {
     public class Game : BasicGame
     {
-        public bool KingIsOnTheMove { get { return Counter % 2 == 0; } }
-        public int KingTurns { get { return Counter / 2; } }
-
+        public bool KingIsOnTheMove { get { return MovesCount % 2 == 0; } }
+        public int KingTurns { get { return MovesCount / 2; } }
         public bool GameIsFinished { get; protected set; }
 
         protected char[,] field = 
@@ -27,6 +26,8 @@ namespace KingSurvivalGame.Common
             { ' ', ' ', '|', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '|', ' ', ' ' },
             { 'D', 'L', ' ', ' ', '0', ' ', '1', ' ', '2', ' ', '3', ' ', '4', ' ', '5', ' ', '6', ' ', '7', ' ', ' ', 'D', 'R' },
         };
+
+        public int KingYPosition { get; protected set; }
 
         protected int[,] startingPositionsPawns = 
         {
@@ -56,7 +57,7 @@ namespace KingSurvivalGame.Common
                     char sign = field[currentCoordinates[0], currentCoordinates[1]];
                     field[currentCoordinates[0], currentCoordinates[1]] = ' ';
                     field[newCoords[0], newCoords[1]] = sign;
-                    Counter++;
+                    MovesCount++;
                     switch (currentPawn)
                     {
                         case 'A':
@@ -178,7 +179,7 @@ namespace KingSurvivalGame.Common
                     char sign = field[currentCoordinates[0], currentCoordinates[1]];
                     field[currentCoordinates[0], currentCoordinates[1]] = ' ';
                     field[newCoords[0], newCoords[1]] = sign;
-                    Counter++;
+                    MovesCount++;
                     switch (currentPawn)
                     {
                         case 'A':
@@ -295,7 +296,7 @@ namespace KingSurvivalGame.Common
             }
         }
 
-        int[] checkNextKingPosition(int[] currentCoordinates, char firstDirection, char secondDirection)
+        protected int[] checkNextKingPosition(int[] currentCoordinates, char firstDirection, char secondDirection)
         {
             int[] displasmentDownLeft = { 1, -2 };
             int[] displasmentDownRight = { 1, 2 };
@@ -314,12 +315,12 @@ namespace KingSurvivalGame.Common
                         char sign = field[currentCoordinates[0], currentCoordinates[1]];
                         field[currentCoordinates[0], currentCoordinates[1]] = ' ';
                         field[newCoords[0], newCoords[1]] = sign;
-                        Counter++;
+                        MovesCount++;
                         for (int i = 0; i < 4; i++)
                         {
                             kingMoves[i] = true;
                         }
-                        checkForKingExit(newCoords[0]);
+                        CheckIfKingExited(newCoords[0]);
                         return newCoords;
                     }
                     else
@@ -352,12 +353,12 @@ namespace KingSurvivalGame.Common
                         char sign = field[currentCoordinates[0], currentCoordinates[1]];
                         field[currentCoordinates[0], currentCoordinates[1]] = ' ';
                         field[newCoords[0], newCoords[1]] = sign;
-                        Counter++;
+                        MovesCount++;
                         for (int i = 0; i < 4; i++)
                         {
                             kingMoves[i] = true;
                         }
-                        checkForKingExit(newCoords[0]);
+                        CheckIfKingExited(newCoords[0]);
                         return newCoords;
                     }
                     else
@@ -393,12 +394,12 @@ namespace KingSurvivalGame.Common
                         char sign = field[currentCoordinates[0], currentCoordinates[1]];
                         field[currentCoordinates[0], currentCoordinates[1]] = ' ';
                         field[newCoords[0], newCoords[1]] = sign;
-                        Counter++;
+                        MovesCount++;
                         for (int i = 0; i < 4; i++)
                         {
                             kingMoves[i] = true;
                         }
-                        checkForKingExit(newCoords[0]);
+                        CheckIfKingExited(newCoords[0]);
                         return newCoords;
                     }
                     else
@@ -431,12 +432,12 @@ namespace KingSurvivalGame.Common
                         char sign = field[currentCoordinates[0], currentCoordinates[1]];
                         field[currentCoordinates[0], currentCoordinates[1]] = ' ';
                         field[newCoords[0], newCoords[1]] = sign;
-                        Counter++;
+                        MovesCount++;
                         for (int i = 0; i < 4; i++)
                         {
                             kingMoves[i] = true;
                         }
-                        checkForKingExit(newCoords[0]);
+                        CheckIfKingExited(newCoords[0]);
                         return newCoords;
                     }
                     else
@@ -464,64 +465,61 @@ namespace KingSurvivalGame.Common
             }
         }
 
-        void checkForKingExit(int currentKingXAxe)
+        public bool CheckIfKingExited(int currentKingXAxe)
         {
             if (currentKingXAxe == 2)
             {
-                Console.WriteLine("End!");
-                Console.WriteLine("King wins in {0} moves!", Counter / 2);
                 GameIsFinished = true;
+                return true;
             }
+
+            return false;
         }
 
         public string GetGridAsString()
         {
             StringBuilder consoleOutput = new StringBuilder();
             consoleOutput.AppendLine();
-            //tuka kato cqlo si pravq nekvi shareniiki
+
             for (int row = 0; row < field.GetLength(0); row++)
             {
                 for (int col = 0; col < field.GetLength(1); col++)
                 {
                     int[] coordinates = { row, col };
                     bool isCellIn = CheckIfInBoard(coordinates);
-                    
-                    if (isCellIn)
+                    char currentCellContent = field[row, col];
+
+                    if (currentCellContent == ' ' && isCellIn)
                     {
                         if (row % 2 == 0)
                         {
-                            if (col % 4 == 0)
+                            if (col % 2 == 0)
                             {
-                                consoleOutput.Append(field[row, col]);
+                                consoleOutput.Append('+');
                             }
-                            else if (col % 2 == 0)
+                            else
                             {
-                                consoleOutput.Append(field[row, col]);
-                            }
-                            else if (col % 2 != 0)
-                            {
-                                consoleOutput.Append(field[row, col]);
+                                consoleOutput.Append('-');
                             }
                         }
-                        else if (col % 4 == 0)
+                        else
                         {
-                            consoleOutput.Append(field[row, col]);
-                        }
-                        else if (col % 2 == 0)
-                        {
-                            consoleOutput.Append(field[row, col]);
-                        }
-                        else if (col % 2 != 0)
-                        {
-                            consoleOutput.Append(field[row, col]);
+                            if (col % 2 == 0)
+                            {
+                                consoleOutput.Append('-');
+                            }
+                            else
+                            {
+                                consoleOutput.Append('+');
+                            }
                         }
                     }
                     else
                     {
-                        consoleOutput.Append(field[row, col]);
+                        consoleOutput.Append(currentCellContent);
                     }
-
                 }
+
                 consoleOutput.AppendLine();
             }
 
@@ -677,8 +675,9 @@ namespace KingSurvivalGame.Common
                             int[] oldCoordinates = new int[2];
                             oldCoordinates[0] = startingPositionKing[0];
                             oldCoordinates[1] = startingPositionKing[1];
-                            int[] coords = new int[2];
-                            coords = checkNextKingPosition(oldCoordinates, 'U', 'L');
+
+                            int[] coords = checkNextKingPosition(oldCoordinates, 'U', 'L');
+
                             if (coords != null)
                             {
                                 startingPositionKing[0] = coords[0];

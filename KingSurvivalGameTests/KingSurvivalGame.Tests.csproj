@@ -6,7 +6,7 @@
     <ProjectGuid>{CE09B89E-5298-45F7-BDFD-494716315607}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KingSurvivalGameTests</RootNamespace>
+    <RootNamespace>KingSurvivalGame.Tests</RootNamespace>
     <AssemblyName>KingSurvivalGameTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

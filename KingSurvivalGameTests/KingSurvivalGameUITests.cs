@@ -3,7 +3,7 @@ using KingSurvivalGame.Common;
 using KingSurvivalGame.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace KingSurvivalGameTests
+namespace KingSurvivalGame.Tests
 {
     [TestClass]
     public class KingSurvivalGameUITests

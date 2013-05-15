@@ -11,18 +11,13 @@ namespace KingSurvivalGame.UI
 
             while (!game.GameIsFinished)
             {
+                Console.Clear();
+                Console.SetCursorPosition(0, 0);
                 Console.WriteLine(game.GetGridAsString());
+                
                 string message;
-
-                if (game.Counter % 2 == 0)
-                {
-                    message = "Please enter king's turn: ";
-                }
-                else
-                {
-                    message = "Please enter pawn's turn: ";
-                }
-
+                message = game.KingIsOnTheMove ? "Please enter king's turn: " : "Please enter pawn's turn: ";
+                
                 while (true)
                 {
                     Console.Write(message);
@@ -34,14 +29,21 @@ namespace KingSurvivalGame.UI
                         continue;
                     }
 
-                    if (game.ProcessCommand(userInput))
+                    if (game.ValidateCommand(userInput))
                     {
+                        game.ProcessCommand(userInput);
                         break;
                     }
                     else
                     {
-                        Console.WriteLine("Invalid command!");
+                        Console.WriteLine("Illegal move!");
                     }
+                }
+
+                if (game.CheckIfKingExited(game.KingYPosition))
+                {
+                    Console.WriteLine("End!");
+                    Console.WriteLine("King wins in {0} moves!", game.KingTurns);
                 }
             }
 

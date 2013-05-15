@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingSurvivalGame.UI", "King
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingSurvivalGame.Common", "..\KingSurvivalGame.Common\KingSurvivalGame.Common.csproj", "{129DCE07-2BE2-4F16-AF3E-BCF3AA4FB7CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingSurvivalGameTests", "..\KingSurvivalGameTests\KingSurvivalGameTests.csproj", "{CE09B89E-5298-45F7-BDFD-494716315607}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingSurvivalGame.Tests", "..\KingSurvivalGameTests\KingSurvivalGame.Tests.csproj", "{CE09B89E-5298-45F7-BDFD-494716315607}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

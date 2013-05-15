@@ -10,3 +10,6 @@
 10.Started adding properties to track the state of the King easier.
 11.Finnished implementing the KingSurvivalPawnsGame into the main.
 12.Merged ProcessKing and ProecessPawn into one, added GetUserInput()
+13.Added colors '+' '-' to the tiles of the board. Refactored the GetGridAsString logic and reduced unneccesary if statements.
+14.Cached the current tile content.
+15.Added Console.Clear() and SetCursorPosition for better user experience.
