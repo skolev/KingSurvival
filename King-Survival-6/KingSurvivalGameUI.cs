@@ -8,11 +8,11 @@ namespace KingSurvivalGame.UI
         public static void Main()
         {
             Game game = new Game();
-            
+
             while (!game.GameIsFinished)
             {
                 Console.Clear();
-                Console.SetCursorPosition(0, 0);                
+                Console.SetCursorPosition(0, 0);
                 Console.WriteLine(game.GetGridAsString());
 
                 string message;
@@ -43,14 +43,6 @@ namespace KingSurvivalGame.UI
                             }
                             else
                             {
-                                if (game.CheckIfAllPawnsAreStuck())
-                                {
-                                    game.GameIsFinished = true;
-                                }
-                                else
-                                {
-
-                                }
                                 Console.WriteLine("You can't go in this direction! ");
                             }
                         }

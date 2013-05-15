@@ -9,7 +9,7 @@ namespace KingSurvivalGame.Common
     {
         public bool KingIsOnTheMove { get { return MovesCount % 2 == 0; } }
         public int KingTurns { get { return MovesCount / 2; } }
-        public bool GameIsFinished { get; set; }
+        public bool GameIsFinished { get; protected set; }
 
         protected char[,] field = 
         {
@@ -43,11 +43,11 @@ namespace KingSurvivalGame.Common
 
         protected bool[] kingMoves = { true, true, true, true };
 
-        protected int[] GetPawnDestination(int[] currentCoordinates, char direction, char currentPawn)
+        protected int[] GetPawnDestination(int[] currentCoordinates, char direction)
         {
             int[] displasmentDownLeft = { 1, -2 };
             int[] displasmentDownRight = { 1, 2 };
-            
+
             int[] newCoords = new int[2];
 
             if (direction == 'L')
@@ -66,20 +66,18 @@ namespace KingSurvivalGame.Common
 
         public bool CheckIfAllPawnsAreStuck()
         {
-            bool areAllPawnsStuck = true;
-
-            for (int i = 0; i < 4; i++)
+            for (int pawn = 0; pawn < 4; pawn++)
             {
-                for (int j = 0; j < 2; j++)
+                for (int direction = 0; direction < 2; direction++)
                 {
-                    if (pawnsMoves[i, j] == true)
+                    if (pawnsMoves[pawn, direction] == true)
                     {
                         return false;
                     }
                 }
             }
 
-            return areAllPawnsStuck;
+            return true;
         }
 
         private void DisablePawnMovesAtDirection(char currentPawn, char direction)
@@ -88,7 +86,7 @@ namespace KingSurvivalGame.Common
             {
                 throw new ArgumentException("No such pawn!");
             }
-            
+
             int pawnNumber = ((int)currentPawn) - 65;
             pawnsMoves[0, direction == 'L' ? 0 : 1] = false;
         }
@@ -340,48 +338,49 @@ namespace KingSurvivalGame.Common
         public bool PlayPawnMove(char figure, char direction)
         {
             int unitNumber = ((int)figure) - 65;
-            int[] oldCoordinates = new int[2];
-            int[] coords = new int[2];
+            int[] currentCoordinates = new int[2];
+            int[] destination = new int[2];
 
-            oldCoordinates[0] = pawnsPositions[unitNumber, 0];
-            oldCoordinates[1] = pawnsPositions[unitNumber, 1];
+            currentCoordinates[0] = pawnsPositions[unitNumber, 0];
+            currentCoordinates[1] = pawnsPositions[unitNumber, 1];
 
-            coords = GetPawnDestination(oldCoordinates, direction, figure);
-            
-            if (ValidatePawnDestination(coords, oldCoordinates))
+            destination = GetPawnDestination(currentCoordinates, direction);
+
+            if (ValidateDestination(destination))
             {
-                pawnsPositions[unitNumber, 0] = coords[0];
-                pawnsPositions[unitNumber, 1] = coords[1];
+                pawnsPositions[unitNumber, 0] = destination[0];
+                pawnsPositions[unitNumber, 1] = destination[1];
+
+                char sign = field[currentCoordinates[0], currentCoordinates[1]];
+                field[currentCoordinates[0], currentCoordinates[1]] = ' ';
+                field[destination[0], destination[1]] = sign;
 
                 EnablePawnMoves(figure);
                 MovesCount++;
 
                 return true;
             }
-
-            if (CheckIfAllPawnsAreStuck())
+            else
             {
-                GameIsFinished = true;
+                DisablePawnMovesAtDirection(figure, direction);
+                
+                if (CheckIfAllPawnsAreStuck())
+                {
+                    GameIsFinished = true;
+                }
             }
 
             return false;
         }
 
-        private bool ValidatePawnDestination(int[] destination, int[] currentCoordinates)
+        private bool ValidateDestination(int[] destination)
         {
             if (CheckIfInBoard(destination) && field[destination[0], destination[1]] == ' ')
             {
-                char sign = field[currentCoordinates[0], currentCoordinates[1]];
-                field[currentCoordinates[0], currentCoordinates[1]] = ' ';
-                field[destination[0], destination[1]] = sign;
-                
                 return true;
             }
-            else
-            {
-                //DisablePawnMovesAtDirection(currentPawn, direction);
-                return false;
-            }
+            
+            return false;
         }
 
         public bool PlayKingMove(char yAxisDirection, char xAxisDirection)
