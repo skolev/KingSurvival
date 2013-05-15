@@ -7,7 +7,7 @@
     <ProjectGuid>{842DAF0E-7B19-48CE-8066-4639CC1F6FB0}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KingSurvivalGame</RootNamespace>
+    <RootNamespace>KingSurvivalGame.UI</RootNamespace>
     <AssemblyName>KingSurvivalGame</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -41,9 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicGame.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="KingPawsGame.cs" />
     <Compile Include="KingSurvivalGameUI.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CodeDocumentation.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KingSurvivalGame.Common\KingSurvivalGame.Common.csproj">
+      <Project>{129dce07-2be2-4f16-af3e-bcf3aa4fb7cd}</Project>
+      <Name>KingSurvivalGame.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KingSurvivalGame
+namespace KingSurvivalGame.Common
 {
-    class BasicGame
+    public class BasicGame
     {
         protected int[,] edges = 
         {
@@ -24,12 +24,13 @@ namespace KingSurvivalGame
 
         protected string[] validDPawnInputs = { "DDL", "DDR" };
 
-        protected bool proverka(int[] positionCoodinates)
+        protected bool CheckIfInBoard(int[] positionCoodinates)
         {
             int positonRow = positionCoodinates[0];
             bool isRowInBoard = (positonRow >= edges[0, 0]) && (positonRow <= edges[3, 0]);
             int positonCol = positionCoodinates[1];
             bool isColInBoard = (positonCol >= edges[0, 1]) && (positonCol <= edges[3, 1]);
+            
             return isRowInBoard && isColInBoard;
         }
 

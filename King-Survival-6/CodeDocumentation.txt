@@ -3,3 +3,10 @@
 3.Starting to build the oop model.
 4.Completly refactored the proverka2 method to one liners and renamed it to ValidateCommand();
 5.Started refacturing the Game.cs Changing all constant variables to const.
+6.Started to make some of the fields into properties.
+7.Started planning about refactoring most game logic by moving it into an external library...
+8.Started to get rid of all console.write statements from the library and integrating them inside the main method.
+9.Deleted KingSurvivalPawnsGame.cs and moved its logic in the main method.
+10.Started adding properties to track the state of the King easier.
+11.Finnished implementing the KingSurvivalPawnsGame into the main.
+12.Merged ProcessKing and ProecessPawn into one, added GetUserInput()
