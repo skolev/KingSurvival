@@ -8,16 +8,16 @@ namespace KingSurvivalGame.UI
         public static void Main()
         {
             Game game = new Game();
-
+            
             while (!game.GameIsFinished)
             {
                 Console.Clear();
-                Console.SetCursorPosition(0, 0);
+                Console.SetCursorPosition(0, 0);                
                 Console.WriteLine(game.GetGridAsString());
-                
+
                 string message;
                 message = game.KingIsOnTheMove ? "Please enter king's turn: " : "Please enter pawn's turn: ";
-                
+
                 while (true)
                 {
                     Console.Write(message);
@@ -31,8 +31,21 @@ namespace KingSurvivalGame.UI
 
                     if (game.ValidateCommand(userInput))
                     {
-                        game.ProcessCommand(userInput);
-                        break;
+                        if (game.ExecuteCommand(userInput))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            if (game.GameIsFinished)
+                            {
+                                Console.WriteLine("King wins!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("You can't go in this direction! ");
+                            }
+                        }
                     }
                     else
                     {
@@ -40,10 +53,11 @@ namespace KingSurvivalGame.UI
                     }
                 }
 
-                if (game.CheckIfKingExited(game.KingYPosition))
+                if (game.CheckIfKingExited())
                 {
                     Console.WriteLine("End!");
                     Console.WriteLine("King wins in {0} moves!", game.KingTurns);
+                    break;
                 }
             }
 
