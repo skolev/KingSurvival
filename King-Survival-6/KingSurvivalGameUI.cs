@@ -82,7 +82,7 @@ namespace KingSurvivalGame.UI
             }
             else if (startLetter == 'A' || startLetter == 'B' || startLetter == 'C' || startLetter == 'D')
             {
-                return game.PlayPawnMove(startLetter, cmd[2]);
+                return game.PlayPawnMove(startLetter, cmd[1]);
             }
             else
             {

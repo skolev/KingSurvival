@@ -103,7 +103,7 @@ namespace KingSurvivalGame.Common
             pawnsMoves[pawnNumber, 1] = true;
         }
 
-        protected int[] checkNextKingPosition(int[] currentCoordinates, char firstDirection, char secondDirection)
+        protected int[] checkNextKingPosition(int[] currentCoordinates, char yAxisDirection, char xAxisDirection)
         {
             int[] displasmentDownLeft = { 1, -2 };
             int[] displasmentDownRight = { 1, 2 };
@@ -111,9 +111,9 @@ namespace KingSurvivalGame.Common
             int[] displasmentUpRight = { -1, 2 };
             int[] newCoords = new int[2];
 
-            if (firstDirection == 'U')
+            if (yAxisDirection == 'U')
             {
-                if (secondDirection == 'L')
+                if (xAxisDirection == 'L')
                 {
                     newCoords[0] = currentCoordinates[0] + displasmentUpLeft[0];
                     newCoords[1] = currentCoordinates[1] + displasmentUpLeft[1];
@@ -194,7 +194,7 @@ namespace KingSurvivalGame.Common
             }
             else
             {
-                if (secondDirection == 'L')
+                if (xAxisDirection == 'L')
                 {
                     newCoords[0] = currentCoordinates[0] + displasmentDownLeft[0];
                     newCoords[1] = currentCoordinates[1] + displasmentDownLeft[1];

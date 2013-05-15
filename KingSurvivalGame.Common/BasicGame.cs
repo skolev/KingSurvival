@@ -16,13 +16,13 @@ namespace KingSurvivalGame.Common
 
         protected string[] validKingInputs = { "KUL", "KUR", "KDL", "KDR" };
 
-        protected string[] validAPawnInputs = { "ADL", "ADR" };
+        protected string[] validAPawnInputs = { "AL", "AR" };
 
-        protected string[] validBPawnInputs = { "BDL", "BDR" };
+        protected string[] validBPawnInputs = { "BL", "BR" };
 
-        protected string[] validCPawnInputs = { "CDL", "CDR" };
+        protected string[] validCPawnInputs = { "CL", "CR" };
 
-        protected string[] validDPawnInputs = { "DDL", "DDR" };
+        protected string[] validDPawnInputs = { "DL", "DR" };
 
         protected bool CheckIfInBoard(int[] positionCoodinates)
         {
