@@ -9,7 +9,7 @@ namespace KingSurvivalGame.Common
     {
         public bool KingIsOnTheMove { get { return MovesCount % 2 == 0; } }
         public int KingTurns { get { return MovesCount / 2; } }
-        public bool GameIsFinished { get; protected set; }
+        public bool GameIsFinished { get; set; }
 
         protected char[,] field = 
         {
@@ -43,170 +43,66 @@ namespace KingSurvivalGame.Common
 
         protected bool[] kingMoves = { true, true, true, true };
 
-        protected int[] GetPawnDestination(int[] currentCoordinates, char checkDirection, char currentPawn)
+        protected int[] GetPawnDestination(int[] currentCoordinates, char direction, char currentPawn)
         {
             int[] displasmentDownLeft = { 1, -2 };
             int[] displasmentDownRight = { 1, 2 };
             
             int[] newCoords = new int[2];
-            
-            if (checkDirection == 'L')
+
+            if (direction == 'L')
             {
                 newCoords[0] = currentCoordinates[0] + displasmentDownLeft[0];
                 newCoords[1] = currentCoordinates[1] + displasmentDownLeft[1];
-                
-                if (CheckIfInBoard(newCoords) && field[newCoords[0], newCoords[1]] == ' ')
-                {
-                    char sign = field[currentCoordinates[0], currentCoordinates[1]];
-                    field[currentCoordinates[0], currentCoordinates[1]] = ' ';
-                    field[newCoords[0], newCoords[1]] = sign;
-                    MovesCount++;
-                   
-                    switch (currentPawn)
-                    {
-                        case 'A':
-                            pawnsMoves[0, 0] = true;
-                            pawnsMoves[0, 1] = true;
-                            break;
-                        case 'B':
-                            pawnsMoves[1, 0] = true;
-                            pawnsMoves[1, 1] = true;
-                            break;
-                        case 'C':
-                            pawnsMoves[2, 0] = true;
-                            pawnsMoves[2, 1] = true;
-                            break;
-                        case 'D':
-                            pawnsMoves[3, 0] = true;
-                            pawnsMoves[3, 1] = true;
-                            break;
-                        default:
-                            throw new ArgumentException("No such pawn!");
-                    }
-
-                    return newCoords;
-                }
-                else
-                {
-                    bool allAreFalse = true;
-
-                    switch (currentPawn)
-                    {
-                        case 'A':
-                            pawnsMoves[0, 0] = false;
-                            break;
-                        case 'B':
-                            pawnsMoves[1, 0] = false;
-                            break;
-                        case 'C':
-                            pawnsMoves[2, 0] = false;
-                            break;
-                        case 'D':
-                            pawnsMoves[3, 0] = false;
-                            break;
-                        default:
-                            throw new ArgumentException(string.Format("No such pawn '{0}'!", currentPawn));
-                    }
-
-                    for (int i = 0; i < 4; i++)
-                    {
-                        for (int j = 0; j < 2; j++)
-                        {
-                            if (pawnsMoves[i, j] == true)
-                            {
-                                allAreFalse = false;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (allAreFalse)
-                    {
-                        GameIsFinished = true;
-                    }
-
-                    return null;
-                }
             }
             else
             {
                 newCoords[0] = currentCoordinates[0] + displasmentDownRight[0];
                 newCoords[1] = currentCoordinates[1] + displasmentDownRight[1];
-                
-                if (CheckIfInBoard(newCoords) && field[newCoords[0], newCoords[1]] == ' ')
+            }
+
+            return newCoords;
+        }
+
+        public bool CheckIfAllPawnsAreStuck()
+        {
+            bool areAllPawnsStuck = true;
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 2; j++)
                 {
-                    char sign = field[currentCoordinates[0], currentCoordinates[1]];
-                    field[currentCoordinates[0], currentCoordinates[1]] = ' ';
-                    field[newCoords[0], newCoords[1]] = sign;
-                    MovesCount++;
-                    switch (currentPawn)
+                    if (pawnsMoves[i, j] == true)
                     {
-                        case 'A':
-                            pawnsMoves[0, 0] = true;
-                            pawnsMoves[0, 1] = true;
-                            break;
-
-                        case 'B':
-                            pawnsMoves[1, 0] = true;
-                            pawnsMoves[1, 1] = true;
-                            break;
-
-                        case 'C':
-                            pawnsMoves[2, 0] = true;
-                            pawnsMoves[2, 1] = true;
-                            break;
-
-                        case 'D':
-                            pawnsMoves[3, 0] = true;
-                            pawnsMoves[3, 1] = true;
-                            break;
-
-                        default:
-                            Console.WriteLine("ERROR!");
-                            break;
+                        return false;
                     }
-                    return newCoords;
-                }
-                else
-                {
-                    bool allAreFalse = true;
-                    switch (currentPawn)
-                    {
-                        case 'A':
-                            pawnsMoves[0, 1] = false;
-                            break;
-                        case 'B':
-                            pawnsMoves[1, 1] = false;
-                            break;
-                        case 'C':
-                            pawnsMoves[2, 1] = false;
-                            break;
-                        case 'D':
-                            pawnsMoves[3, 1] = false;
-                            break;
-                        default:
-                            Console.WriteLine("ERROR!");
-                            break;
-                    }
-
-                    for (int i = 0; i < 4; i++)
-                    {
-                        for (int j = 0; j < 2; j++)
-                        {
-                            if (pawnsMoves[i, j] == true)
-                            {
-                                allAreFalse = false;
-                            }
-                        }
-                    }
-
-                    if (allAreFalse)
-                    {
-                        GameIsFinished = true;
-                    }
-                    return null;
                 }
             }
+
+            return areAllPawnsStuck;
+        }
+
+        private void DisablePawnMovesAtDirection(char currentPawn, char direction)
+        {
+            if (currentPawn > 'D')
+            {
+                throw new ArgumentException("No such pawn!");
+            }
+            
+            int pawnNumber = ((int)currentPawn) - 65;
+            pawnsMoves[0, direction == 'L' ? 0 : 1] = false;
+        }
+
+        private void EnablePawnMoves(char currentPawn)
+        {
+            if (currentPawn > 'D')
+            {
+                throw new ArgumentException("No such pawn!");
+            }
+
+            int pawnNumber = ((int)currentPawn) - 65;
+            pawnsMoves[pawnNumber, 0] = true;
+            pawnsMoves[pawnNumber, 1] = true;
         }
 
         protected int[] checkNextKingPosition(int[] currentCoordinates, char firstDirection, char secondDirection)
@@ -441,7 +337,7 @@ namespace KingSurvivalGame.Common
             return consoleOutput.ToString();
         }
 
-        private bool PlayPawnMove(char figure, char direction)
+        public bool PlayPawnMove(char figure, char direction)
         {
             int unitNumber = ((int)figure) - 65;
             int[] oldCoordinates = new int[2];
@@ -452,17 +348,43 @@ namespace KingSurvivalGame.Common
 
             coords = GetPawnDestination(oldCoordinates, direction, figure);
             
-            if (coords != null)
+            if (ValidatePawnDestination(coords, oldCoordinates))
             {
                 pawnsPositions[unitNumber, 0] = coords[0];
                 pawnsPositions[unitNumber, 1] = coords[1];
+
+                EnablePawnMoves(figure);
+                MovesCount++;
+
                 return true;
+            }
+
+            if (CheckIfAllPawnsAreStuck())
+            {
+                GameIsFinished = true;
             }
 
             return false;
         }
 
-        private bool PlayKingMove(char yAxisDirection, char xAxisDirection)
+        private bool ValidatePawnDestination(int[] destination, int[] currentCoordinates)
+        {
+            if (CheckIfInBoard(destination) && field[destination[0], destination[1]] == ' ')
+            {
+                char sign = field[currentCoordinates[0], currentCoordinates[1]];
+                field[currentCoordinates[0], currentCoordinates[1]] = ' ';
+                field[destination[0], destination[1]] = sign;
+                
+                return true;
+            }
+            else
+            {
+                //DisablePawnMovesAtDirection(currentPawn, direction);
+                return false;
+            }
+        }
+
+        public bool PlayKingMove(char yAxisDirection, char xAxisDirection)
         {
             int[] oldCoordinates = new int[2];
             int[] coords = new int[2];
@@ -478,28 +400,6 @@ namespace KingSurvivalGame.Common
             }
 
             return false;
-        }
-
-        public bool ExecuteCommand(string cmd)
-        {
-            char startLetter = cmd[0];
-            int[] oldCoordinates = new int[2];
-            int[] coords = new int[2];
-
-            if (startLetter == 'K')
-            {
-                return PlayKingMove(cmd[1], cmd[2]);
-            }
-            else if (startLetter == 'A' || startLetter == 'B' || startLetter == 'C' || startLetter == 'D')
-            {
-                return PlayPawnMove(startLetter, cmd[2]);
-            }
-            else
-            {
-                throw new ArgumentException("Attempting to move a non existing figure!");
-            }
-
-
         }
     }
 }

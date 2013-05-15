@@ -13,3 +13,5 @@
 13.Added colors '+' '-' to the tiles of the board. Refactored the GetGridAsString logic and reduced unneccesary if statements.
 14.Cached the current tile content.
 15.Added Console.Clear() and SetCursorPosition for better user experience.
+16.Continued to move printing and reading logic to the Main method.
+17.Moved the ExecuteCommand() to the main class of the UI.

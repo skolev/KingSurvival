@@ -31,7 +31,7 @@ namespace KingSurvivalGame.UI
 
                     if (game.ValidateCommand(userInput))
                     {
-                        if (game.ExecuteCommand(userInput))
+                        if (ExecuteCommand(userInput, game))
                         {
                             break;
                         }
@@ -43,6 +43,14 @@ namespace KingSurvivalGame.UI
                             }
                             else
                             {
+                                if (game.CheckIfAllPawnsAreStuck())
+                                {
+                                    game.GameIsFinished = true;
+                                }
+                                else
+                                {
+
+                                }
                                 Console.WriteLine("You can't go in this direction! ");
                             }
                         }
@@ -70,5 +78,26 @@ namespace KingSurvivalGame.UI
             return Console.ReadLine().ToUpper();
         }
 
+        public static bool ExecuteCommand(string cmd, Game game)
+        {
+            char startLetter = cmd[0];
+            int[] oldCoordinates = new int[2];
+            int[] coords = new int[2];
+
+            if (startLetter == 'K')
+            {
+                return game.PlayKingMove(cmd[1], cmd[2]);
+            }
+            else if (startLetter == 'A' || startLetter == 'B' || startLetter == 'C' || startLetter == 'D')
+            {
+                return game.PlayPawnMove(startLetter, cmd[2]);
+            }
+            else
+            {
+                throw new ArgumentException("Attempting to move a non existing figure!");
+            }
+
+
+        }
     }
 }
