@@ -33,16 +33,6 @@ namespace KingSurvivalGame.Tests
         }
 
         [TestMethod]
-        [Ignore]
-        public void TestKingExitedsuccessfully()
-        {
-            Game game = new Game();
-            //game.KingYPosition = 2;
-            bool result = game.CheckIfKingExited();
-            Assert.AreEqual(true, result);
-        }
-
-        [TestMethod]
         public void TestGetPawnDestinationDownRight()
         {
             BindingFlags bindingnFlags = BindingFlags.Instance | BindingFlags.NonPublic;
@@ -105,11 +95,117 @@ namespace KingSurvivalGame.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(IndexOutOfRangeException))]
         public void TestPlayPawnInvalidPawn()
         {
             Game game = new Game();
             game.PlayPawnMove('E', 'R');
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(IndexOutOfRangeException))]
+        public void TestPlayPawnInvalidMove()
+        {
+            Game game = new Game();
+            game.PlayPawnMove('E', 'D');
+        }
+
+        [TestMethod]
+        public void TestPlayPawnIsStuck()
+        {
+            Game game = new Game();
+            game.PlayPawnMove('A', 'L');
+            bool result = game.CheckIfAllPawnsAreStuck();
+            bool expected = false;
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void TestGetKingDestinationUpLeft()
+        {
+            BindingFlags bindingnFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+            Game game = new Game();
+            int[] coordinates = new int[] { 9, 6 };
+            object[] arguments = new object[] { coordinates, 'U', 'L' };
+            MethodInfo testedMethod = typeof(Game).GetMethod("GetKingDestination", bindingnFlags);
+            int[] result = (int[])testedMethod.Invoke(game, arguments);
+            int[] expected = new int[] { 8, 5 };
+            CollectionAssert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void TestGetKingDestinationUpRight()
+        {
+            BindingFlags bindingnFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+            Game game = new Game();
+            int[] coordinates = new int[] { 9, 6 };
+            object[] arguments = new object[] { coordinates, 'U', 'R' };
+            MethodInfo testedMethod = typeof(Game).GetMethod("GetKingDestination", bindingnFlags);
+            int[] result = (int[])testedMethod.Invoke(game, arguments);
+            int[] expected = new int[] { 8, 7 };
+            CollectionAssert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void TestGetKingDestinationDownLeft()
+        {
+            BindingFlags bindingnFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+            Game game = new Game();
+            int[] coordinates = new int[] { 9, 6 };
+            object[] arguments = new object[] { coordinates, 'D', 'L' };
+            MethodInfo testedMethod = typeof(Game).GetMethod("GetKingDestination", bindingnFlags);
+            int[] result = (int[])testedMethod.Invoke(game, arguments);
+            int[] expected = new int[] { 10, 5 };
+            CollectionAssert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void TestGetKingDestinationDownRight()
+        {
+            BindingFlags bindingnFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+            Game game = new Game();
+            int[] coordinates = new int[] { 9, 6 };
+            object[] arguments = new object[] { coordinates, 'D', 'R' };
+            MethodInfo testedMethod = typeof(Game).GetMethod("GetKingDestination", bindingnFlags);
+            int[] result = (int[])testedMethod.Invoke(game, arguments);
+            int[] expected = new int[] { 10, 7 };
+            CollectionAssert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void TestPlayKingMoveUpLeft()
+        {
+            Game game = new Game();
+            bool result = game.PlayKingMove('U', 'L');
+            bool expected = true;
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void TestPlayKingMoveUpRight()
+        {
+            Game game = new Game();
+            bool result = game.PlayKingMove('U', 'R');
+            bool expected = true;
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void TestPlayKingMoveDownLeft()
+        {
+            Game game = new Game();
+            bool result = game.PlayKingMove('D', 'L');
+            bool expected = false;
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void TestPlayKingMoveDownRight()
+        {
+            Game game = new Game();
+            bool result = game.PlayKingMove('D', 'R');
+            bool expected = false;
+            Assert.AreEqual(expected, result);
         }
     }
 }
