@@ -3,7 +3,7 @@ using KingSurvivalGame.Common;
 
 namespace KingSurvivalGame.UI
 {
-    class KingSurvivalGameUI
+    public class KingSurvivalGameUI
     {
         public static void Main()
         {
