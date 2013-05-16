@@ -130,7 +130,7 @@ namespace KingSurvivalGame.Tests
         {
             BindingFlags eFlags = BindingFlags.Instance | BindingFlags.NonPublic;
             Game game = new Game();
-            int[] values = new int[] { 2, 4 };
+            int[] values = new int[] { 2, 3 };
             object[] arguments = new object[] { values };
             MethodInfo testedMethod = typeof(Game).GetMethod("CheckIfInBoard", eFlags);
             bool result = (bool)testedMethod.Invoke(game, arguments);
@@ -142,7 +142,7 @@ namespace KingSurvivalGame.Tests
         {
             BindingFlags eFlags = BindingFlags.Instance | BindingFlags.NonPublic;
             Game game = new Game();
-            int[] values = new int[] { 9, 18 };
+            int[] values = new int[] { 9, 11 };
             object[] arguments = new object[] { values };
             MethodInfo testedMethod = typeof(Game).GetMethod("CheckIfInBoard", eFlags);
             bool result = (bool)testedMethod.Invoke(game, arguments);
@@ -154,7 +154,7 @@ namespace KingSurvivalGame.Tests
         {
             BindingFlags eFlags = BindingFlags.Instance | BindingFlags.NonPublic;
             Game game = new Game();
-            int[] values = new int[] { 7, 14 };
+            int[] values = new int[] { 8, 7 };
             object[] arguments = new object[] { values };
             MethodInfo testedMethod = typeof(Game).GetMethod("CheckIfInBoard", eFlags);
             bool result = (bool)testedMethod.Invoke(game, arguments);
