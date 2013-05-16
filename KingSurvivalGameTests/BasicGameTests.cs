@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Reflection;
 using KingSurvivalGame.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Reflection;
 
 namespace KingSurvivalGame.Tests
 {
@@ -128,11 +128,11 @@ namespace KingSurvivalGame.Tests
         [TestMethod]
         public void TestCoordinatesInBoardMinimalValues()
         {
-            BindingFlags eFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+            BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic;
             Game game = new Game();
             int[] values = new int[] { 2, 3 };
             object[] arguments = new object[] { values };
-            MethodInfo testedMethod = typeof(Game).GetMethod("CheckIfInBoard", eFlags);
+            MethodInfo testedMethod = typeof(Game).GetMethod("CheckIfInBoard", bindingFlags);
             bool result = (bool)testedMethod.Invoke(game, arguments);
             Assert.AreEqual(true, result);
         }
@@ -140,11 +140,11 @@ namespace KingSurvivalGame.Tests
         [TestMethod]
         public void TestCoordinatesInBoardMaximalValues()
         {
-            BindingFlags eFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+            BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic;
             Game game = new Game();
             int[] values = new int[] { 9, 11 };
             object[] arguments = new object[] { values };
-            MethodInfo testedMethod = typeof(Game).GetMethod("CheckIfInBoard", eFlags);
+            MethodInfo testedMethod = typeof(Game).GetMethod("CheckIfInBoard", bindingFlags);
             bool result = (bool)testedMethod.Invoke(game, arguments);
             Assert.AreEqual(true, result);
         }
@@ -152,11 +152,11 @@ namespace KingSurvivalGame.Tests
         [TestMethod]
         public void TestCoordinatesInBoardRandomValues()
         {
-            BindingFlags eFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+            BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic;
             Game game = new Game();
             int[] values = new int[] { 8, 7 };
             object[] arguments = new object[] { values };
-            MethodInfo testedMethod = typeof(Game).GetMethod("CheckIfInBoard", eFlags);
+            MethodInfo testedMethod = typeof(Game).GetMethod("CheckIfInBoard", bindingFlags);
             bool result = (bool)testedMethod.Invoke(game, arguments);
             Assert.AreEqual(true, result);
         }
@@ -164,22 +164,22 @@ namespace KingSurvivalGame.Tests
         [TestMethod]
         public void TestCoordinatesInBoardInvalidRowValue()
         {
-            BindingFlags eFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+            BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic;
             Game game = new Game();
             int[] values = new int[] { 1, 10 };
             object[] arguments = new object[] { values };
-            MethodInfo testedMethod = typeof(Game).GetMethod("CheckIfInBoard", eFlags);
+            MethodInfo testedMethod = typeof(Game).GetMethod("CheckIfInBoard", bindingFlags);
             bool result = (bool)testedMethod.Invoke(game, arguments);
             Assert.AreEqual(false, result);
         }
 
         public void TestCoordinatesInBoardInvalidColValue()
         {
-            BindingFlags eFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+            BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic;
             Game game = new Game();
             int[] values = new int[] { 5, 10 };
             object[] arguments = new object[] { values };
-            MethodInfo testedMethod = typeof(Game).GetMethod("CheckIfInBoard", eFlags);
+            MethodInfo testedMethod = typeof(Game).GetMethod("CheckIfInBoard", bindingFlags);
             bool result = (bool)testedMethod.Invoke(game, arguments);
             Assert.AreEqual(false, result);
         }
