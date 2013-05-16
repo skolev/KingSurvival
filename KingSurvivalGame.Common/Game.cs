@@ -5,11 +5,30 @@ using System.Text;
 
 namespace KingSurvivalGame.Common
 {
+    /// <summary>
+    /// Main game logic is present here.
+    /// </summary>
     public class Game : BasicGame
     {
+        /// <summary>
+        /// Checks if it is the king's turn and returns the result as bool
+        /// </summary>
         public bool KingIsOnTheMove { get { return MovesCount % 2 == 0; } }
-        public int KingTurns { get { return MovesCount / 2; } }
+        
+        /// <summary>
+        /// Calculates the moves that the king has made for the entire game and returns them as an integer.
+        /// </summary>
+        public int KingTurns { get { return MovesCount >> 1; } }
+        
+        /// <summary>
+        /// Keeps the current game state.
+        /// </summary>
         public bool GameIsFinished { get; protected set; }
+        
+        /// <summary>
+        /// Keeps the current king's position along the Y axis.
+        /// </summary>
+        public int KingYPosition { get; protected set; }
 
         protected char[,] field = 
         {
@@ -26,8 +45,6 @@ namespace KingSurvivalGame.Common
             { ' ', ' ', '|', '_', '_', '_', '_', '_', '_', '_', '_', '|', ' ', ' ' },
             { 'D', 'L', ' ', '0', '1', '2', '3', '4', '5', '6', '7', ' ', 'D', 'R' },
         };
-
-        public int KingYPosition { get; protected set; }
 
         protected int[,] pawnsPositions = 
         {
@@ -64,6 +81,10 @@ namespace KingSurvivalGame.Common
             return newCoords;
         }
 
+        /// <summary>
+        /// Checks if all the pawns have reached a stuck state which results of the king's victory.
+        /// </summary>
+        /// <returns>bool state af all the pawns</returns>
         public bool CheckIfAllPawnsAreStuck()
         {
             for (int pawn = 0; pawn < 4; pawn++)

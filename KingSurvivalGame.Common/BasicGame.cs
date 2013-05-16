@@ -5,6 +5,10 @@ using System.Text;
 
 namespace KingSurvivalGame.Common
 {
+    /// <summary>
+    /// Server as a base for the game. It holds the logic for game field size.
+    /// Validating commands and checking if a given location is within the border of the game grid.
+    /// </summary>
     public class BasicGame
     {
         protected int[,] edgesOfTheGameField = 
@@ -12,6 +16,9 @@ namespace KingSurvivalGame.Common
             { 2, 3 }, { 2, 11 }, { 9, 4 }, { 9, 11 }
         };
 
+        /// <summary>
+        /// Keeps a count of both the moves made by the king and those made by any of the pawns.
+        /// </summary>
         public int MovesCount { get; set; }
 
         protected string[] validKingInputs = { "KUL", "KUR", "KDL", "KDR" };
@@ -34,6 +41,11 @@ namespace KingSurvivalGame.Common
             return isRowInBoard && isColInBoard;
         }
 
+        /// <summary>
+        /// Makes sure that the passed command is known to the game engine.
+        /// </summary>
+        /// <param name="cmd">It takes a single string command, that gets evaluated.</param>
+        /// <returns>bool stating the result of the validation.</returns>
         public bool ValidateCommand(string cmd)
         {
             if (MovesCount % 2 == 0)
