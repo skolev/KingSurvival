@@ -9,7 +9,6 @@ namespace KingSurvivalGame.Tests
     public class KingSurvivalGameUITests
     {
         [TestMethod]
-        [Ignore]
         public void TestGameGrid()
         {
         }

@@ -27,8 +27,7 @@ namespace KingSurvivalGame.Tests
                 "7 |+-+K+-+-| 7{0}" +
                 "  |________|  {0}" +
                 "DL 01234567 DR{0}{0}",
-                Environment.NewLine
-                );
+                Environment.NewLine);
             Assert.AreEqual<string>(expected, resultField);
         }
 
@@ -37,8 +36,8 @@ namespace KingSurvivalGame.Tests
         {
             BindingFlags bindingnFlags = BindingFlags.Instance | BindingFlags.NonPublic;
             Game game = new Game();
-            int[] values = new int[] {2, 3};
-            object[] arguments = new object[] {values, 'R'};
+            int[] values = new int[] { 2, 3 };
+            object[] arguments = new object[] { values, 'R' };
             MethodInfo testedMethod = typeof(Game).GetMethod("GetPawnDestination", bindingnFlags);
             int[] result = (int[])testedMethod.Invoke(game, arguments);
             int[] expected = new int[] { 3, 4 };
