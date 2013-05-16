@@ -9,7 +9,7 @@ namespace KingSurvivalGame.Tests
     public class GameTests
     {
         [TestMethod]
-        public void TestGameGrid()
+        public void TestGameInitialGrid()
         {
             Game testGame = new Game();
             string resultField = testGame.GetGridAsString();

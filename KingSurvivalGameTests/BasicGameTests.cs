@@ -108,6 +108,7 @@ namespace KingSurvivalGame.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
         public void TestValidateCommandInvalidPawnCommand()
         {
             Game game = new Game();
