@@ -181,6 +181,15 @@ namespace KingSurvivalGame.Tests
         }
 
         [TestMethod]
+        public void TestPlayKingMoveDownLeft()
+        {
+            Game game = new Game();
+            bool result = game.PlayKingMove('D', 'L');
+            bool expected = false;
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
         public void TestPlayKingMoveUpRight()
         {
             Game game = new Game();
@@ -189,14 +198,6 @@ namespace KingSurvivalGame.Tests
             Assert.AreEqual(expected, result);
         }
 
-        [TestMethod]
-        public void TestPlayKingMoveDownLeft()
-        {
-            Game game = new Game();
-            bool result = game.PlayKingMove('D', 'L');
-            bool expected = false;
-            Assert.AreEqual(expected, result);
-        }
 
         [TestMethod]
         public void TestPlayKingMoveDownRight()

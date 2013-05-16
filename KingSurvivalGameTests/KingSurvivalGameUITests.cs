@@ -12,6 +12,5 @@ namespace KingSurvivalGame.Tests
         public void TestGameGrid()
         {
         }
-        // TODO example game session test
     }
 }
