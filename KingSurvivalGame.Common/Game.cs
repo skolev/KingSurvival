@@ -34,7 +34,7 @@ namespace KingSurvivalGame.Common
             { 2, 3 }, { 2, 5 }, { 2, 7 }, { 2, 9 }
         };
 
-        protected int[] startingPositionKing = { 9, 6 };
+        protected int[] kingPosition = { 9, 6 };
 
         protected bool[,] pawnsMoves = 
         {
@@ -77,6 +77,7 @@ namespace KingSurvivalGame.Common
                 }
             }
 
+            GameIsFinished = true;
             return true;
         }
 
@@ -103,12 +104,13 @@ namespace KingSurvivalGame.Common
             pawnsMoves[pawnNumber, 1] = true;
         }
 
-        protected int[] checkNextKingPosition(int[] currentCoordinates, char yAxisDirection, char xAxisDirection)
+        protected int[] GetKingDestination(int[] currentCoordinates, char yAxisDirection, char xAxisDirection)
         {
             int[] displasmentDownLeft = { 1, -1 };
             int[] displasmentDownRight = { 1, 1 };
             int[] displasmentUpLeft = { -1, -1 };
             int[] displasmentUpRight = { -1, 1 };
+
             int[] newCoords = new int[2];
 
             if (yAxisDirection == 'U')
@@ -117,79 +119,11 @@ namespace KingSurvivalGame.Common
                 {
                     newCoords[0] = currentCoordinates[0] + displasmentUpLeft[0];
                     newCoords[1] = currentCoordinates[1] + displasmentUpLeft[1];
-                    if (CheckIfInBoard(newCoords) && field[newCoords[0], newCoords[1]] == ' ')
-                    {
-                        char sign = field[currentCoordinates[0], currentCoordinates[1]];
-                        field[currentCoordinates[0], currentCoordinates[1]] = ' ';
-                        field[newCoords[0], newCoords[1]] = sign;
-                        MovesCount++;
-                        for (int i = 0; i < 4; i++)
-                        {
-                            kingMoves[i] = true;
-                        }
-                        KingYPosition = newCoords[0];
-                        //CheckIfKingExited();
-                        return newCoords;
-                    }
-                    else
-                    {
-                        kingMoves[0] = false;
-                        bool allAreFalse = true;
-                        for (int i = 0; i < 4; i++)
-                        {
-                            if (kingMoves[i] == true)
-                            {
-                                allAreFalse = false;
-                            }
-                        }
-                        if (allAreFalse)
-                        {
-                            GameIsFinished = true;
-                            Console.WriteLine("King loses!");
-                            return null;
-                        }
-                        Console.WriteLine("You can't go in this direction! ");
-                        return null;
-                    }
                 }
                 else
                 {
                     newCoords[0] = currentCoordinates[0] + displasmentUpRight[0];
                     newCoords[1] = currentCoordinates[1] + displasmentUpRight[1];
-                    if (CheckIfInBoard(newCoords) && field[newCoords[0], newCoords[1]] == ' ')
-                    {
-                        char sign = field[currentCoordinates[0], currentCoordinates[1]];
-                        field[currentCoordinates[0], currentCoordinates[1]] = ' ';
-                        field[newCoords[0], newCoords[1]] = sign;
-                        MovesCount++;
-                        for (int i = 0; i < 4; i++)
-                        {
-                            kingMoves[i] = true;
-                        }
-                        KingYPosition = newCoords[0];
-                        //CheckIfKingExited();
-                        return newCoords;
-                    }
-                    else
-                    {
-                        kingMoves[1] = false;
-                        bool allAreFalse = true;
-                        for (int i = 0; i < 4; i++)
-                        {
-                            if (kingMoves[i] == true)
-                            {
-                                allAreFalse = false;
-                            }
-                        }
-                        if (allAreFalse)
-                        {
-                            GameIsFinished = true;
-                            Console.WriteLine("King loses!");
-                            return null;
-                        }
-                        Console.WriteLine("You can't go in this direction! ");
-                        return null;
-                    }
                 }
             }
             else
@@ -198,82 +132,15 @@ namespace KingSurvivalGame.Common
                 {
                     newCoords[0] = currentCoordinates[0] + displasmentDownLeft[0];
                     newCoords[1] = currentCoordinates[1] + displasmentDownLeft[1];
-                    if (CheckIfInBoard(newCoords) && field[newCoords[0], newCoords[1]] == ' ')
-                    {
-                        char sign = field[currentCoordinates[0], currentCoordinates[1]];
-                        field[currentCoordinates[0], currentCoordinates[1]] = ' ';
-                        field[newCoords[0], newCoords[1]] = sign;
-                        MovesCount++;
-                        for (int i = 0; i < 4; i++)
-                        {
-                            kingMoves[i] = true;
-                        }
-                        KingYPosition = newCoords[0];
-                        //CheckIfKingExited();
-                        return newCoords;
-                    }
-                    else
-                    {
-                        kingMoves[2] = false;
-                        bool allAreFalse = true;
-                        for (int i = 0; i < 4; i++)
-                        {
-                            if (kingMoves[i] == true)
-                            {
-                                allAreFalse = false;
-                            }
-                        }
-                        if (allAreFalse)
-                        {
-                            GameIsFinished = true;
-                            Console.WriteLine("King loses!");
-                            return null;
-                        }
-                        Console.WriteLine("You can't go in this direction! ");
-                        return null;
-                    }
                 }
                 else
                 {
                     newCoords[0] = currentCoordinates[0] + displasmentDownRight[0];
                     newCoords[1] = currentCoordinates[1] + displasmentDownRight[1];
-                    if (CheckIfInBoard(newCoords) && field[newCoords[0], newCoords[1]] == ' ')
-                    {
-                        char sign = field[currentCoordinates[0], currentCoordinates[1]];
-                        field[currentCoordinates[0], currentCoordinates[1]] = ' ';
-                        field[newCoords[0], newCoords[1]] = sign;
-                        MovesCount++;
-                        for (int i = 0; i < 4; i++)
-                        {
-                            kingMoves[i] = true;
-                        }
-                        KingYPosition = newCoords[0];
-                        //CheckIfKingExited();
-                        return newCoords;
-                    }
-                    else
-                    {
-                        kingMoves[3] = false;
-                        bool allAreFalse = true;
-                        for (int i = 0; i < 4; i++)
-                        {
-                            if (kingMoves[i] == true)
-                            {
-                                allAreFalse = false;
-                            }
-                        }
-                        if (allAreFalse)
-                        {
-                            GameIsFinished = true;
-                            Console.WriteLine("King loses!");
-                            return null;
-                        }
-                        Console.WriteLine("You can't go in this direction! ");
-                        return null;
-                    }
                 }
-                // checkForKingExit();
             }
+
+            return newCoords;
         }
 
         public bool CheckIfKingExited()
@@ -363,11 +230,6 @@ namespace KingSurvivalGame.Common
             else
             {
                 DisablePawnMovesAtDirection(figure, direction);
-                
-                if (CheckIfAllPawnsAreStuck())
-                {
-                    GameIsFinished = true;
-                }
             }
 
             return false;
@@ -385,20 +247,72 @@ namespace KingSurvivalGame.Common
 
         public bool PlayKingMove(char yAxisDirection, char xAxisDirection)
         {
-            int[] oldCoordinates = new int[2];
-            int[] coords = new int[2];
-            oldCoordinates[0] = startingPositionKing[0];
-            oldCoordinates[1] = startingPositionKing[1];
-            coords = checkNextKingPosition(oldCoordinates, yAxisDirection, xAxisDirection);
+            int[] currentCoordinates = new int[2];
+            int[] destination = new int[2];
 
-            if (coords != null)
+            currentCoordinates[0] = kingPosition[0];
+            currentCoordinates[1] = kingPosition[1];
+            
+            destination = GetKingDestination(currentCoordinates, yAxisDirection, xAxisDirection);
+
+            if (ValidateDestination(destination))
             {
-                startingPositionKing[0] = coords[0];
-                startingPositionKing[1] = coords[1];
+                kingPosition[0] = destination[0];
+                kingPosition[1] = destination[1];
+
+                char sign = field[currentCoordinates[0], currentCoordinates[1]];
+                field[currentCoordinates[0], currentCoordinates[1]] = ' ';
+                field[destination[0], destination[1]] = sign;
+                MovesCount++;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    kingMoves[i] = true;
+                }
+
+                KingYPosition = destination[0];
+
                 return true;
             }
 
+            if (yAxisDirection == 'U')
+            {
+                if (xAxisDirection == 'L')
+                {
+                    kingMoves[0] = false;
+                }
+                else
+                {
+                    kingMoves[1] = false;
+                }
+            }
+            else
+            {
+                if (xAxisDirection == 'L')
+                {
+                    kingMoves[2] = false;
+                }
+                else
+                {
+                    kingMoves[3] = false;
+                }
+            }
+
             return false;
+        }
+
+        public bool CheckIfKingIsStuck()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (kingMoves[i] == true)
+                {
+                    return false;
+                }
+            }
+
+            GameIsFinished = true;
+            return true;
         }
     }
 }

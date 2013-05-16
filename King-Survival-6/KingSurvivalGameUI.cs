@@ -23,7 +23,7 @@ namespace KingSurvivalGame.UI
                     Console.Write(message);
                     string userInput = GetUserInput();
 
-                    if (userInput == null)
+                    if (userInput == string.Empty)
                     {
                         Console.WriteLine("Please enter something!");
                         continue;
@@ -37,9 +37,13 @@ namespace KingSurvivalGame.UI
                         }
                         else
                         {
-                            if (game.GameIsFinished)
+                            if (game.CheckIfAllPawnsAreStuck())
                             {
                                 Console.WriteLine("King wins!");
+                            }
+                            else if (game.CheckIfKingIsStuck())
+                            {
+                                Console.WriteLine("King loses!");
                             }
                             else
                             {

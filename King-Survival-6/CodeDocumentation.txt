@@ -15,3 +15,9 @@
 15.Added Console.Clear() and SetCursorPosition for better user experience.
 16.Continued to move printing and reading logic to the Main method.
 17.Moved the ExecuteCommand() to the main class of the UI.
+18.Optimized the Methods for moving the king and the pawns.
+19.Separated most of the logic in them in several methods, combining the validation for both.
+20.Created new methods so that every method can perform a single task and not more.
+21.Decided to keep GameFinished property public, but the setter protected - checking for stuck pawns or king invokes the gome to end.
+22.Result from optimizations of the code - reduced the lines for the Game.cs class from 800+ to just 300!;
+21.Starting documentation.
