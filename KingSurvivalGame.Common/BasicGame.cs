@@ -9,7 +9,7 @@ namespace KingSurvivalGame.Common
     {
         protected int[,] edgesOfTheGameField = 
         {
-            { 2, 4 }, { 2, 18 }, { 9, 4 }, { 9, 18 }
+            { 2, 3 }, { 2, 11 }, { 9, 4 }, { 9, 11 }
         };
 
         public int MovesCount { get; set; }

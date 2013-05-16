@@ -88,8 +88,6 @@ namespace KingSurvivalGame.UI
             {
                 throw new ArgumentException("Attempting to move a non existing figure!");
             }
-
-
         }
     }
 }
