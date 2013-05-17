@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingSurvivalGame.UI", "KingSurvivalGame.UI.csproj", "{842DAF0E-7B19-48CE-8066-4639CC1F6FB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingSurvivalGame.UI", "KingSurvivalGame.UI\KingSurvivalGame.UI.csproj", "{842DAF0E-7B19-48CE-8066-4639CC1F6FB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingSurvivalGame.Common", "..\KingSurvivalGame.Common\KingSurvivalGame.Common.csproj", "{129DCE07-2BE2-4F16-AF3E-BCF3AA4FB7CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingSurvivalGame.Common", "KingSurvivalGame.Common\KingSurvivalGame.Common.csproj", "{129DCE07-2BE2-4F16-AF3E-BCF3AA4FB7CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingSurvivalGame.Tests", "..\KingSurvivalGameTests\KingSurvivalGame.Tests.csproj", "{CE09B89E-5298-45F7-BDFD-494716315607}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingSurvivalGame.Tests", "KingSurvivalGame.Tests\KingSurvivalGame.Tests.csproj", "{CE09B89E-5298-45F7-BDFD-494716315607}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

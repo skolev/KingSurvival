@@ -56,7 +56,7 @@
     <Compile Include="GameTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\King-Survival-6\KingSurvivalGame.UI.csproj">
+    <ProjectReference Include="..\KingSurvivalGame.UI\KingSurvivalGame.UI.csproj">
       <Project>{842daf0e-7b19-48ce-8066-4639cc1f6fb0}</Project>
       <Name>KingSurvivalGame.UI</Name>
     </ProjectReference>
